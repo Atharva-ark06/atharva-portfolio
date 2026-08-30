@@ -203,6 +203,7 @@
     transform: translateY(-50%);
     background: var(--background);
     padding: var(--spaceXS) var(--spaceM);
+    -webkit-user-select: none;
     user-select: none;
   }
 }

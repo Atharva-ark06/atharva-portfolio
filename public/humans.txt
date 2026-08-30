@@ -10,7 +10,7 @@ _______________________________________________________________________________
 
 DESIGNER | デザイナー
 
-Hamish Williams
+Kulkarni Atharva
 Hand crafted design & web development
 
 Design tools:
@@ -18,8 +18,8 @@ Figma
 Photoshop
 Blender
 
-twitter.com/hamishmw
-github.com/hamishmw
+https://x.com/AtharvaKul63436
+https://github.com/Atharva-ark06
 
 _______________________________________________________________________________
 
