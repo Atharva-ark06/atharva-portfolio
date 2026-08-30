@@ -8,7 +8,7 @@
 
 .text {
   max-width: 1024px;
-  width: 100%;
+  width: min(100% - 48px, 1024px);
   position: relative;
   top: calc(var(--spaceL) * -1);
 
@@ -80,6 +80,9 @@
   flex-direction: row;
   align-items: center;
   position: relative;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
 
   &[data-hidden='true'] {
     opacity: 0;
@@ -107,7 +110,9 @@
 .word {
   position: relative;
   display: flex;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  min-width: 0;
+  max-width: 100%;
   align-items: center;
   line-height: 1;
   animation-duration: 1.5s;
