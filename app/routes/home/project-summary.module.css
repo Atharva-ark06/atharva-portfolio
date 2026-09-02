@@ -1,21 +1,21 @@
 .summary {
-  height: 100vh;
+  height: 82vh;
   width: 100%;
-  max-height: 1080px;
+  max-height: 900px;
   padding-bottom: var(--spaceL);
-  margin: 120px 0;
+  margin: 10px 0;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 
   @media (--mediaDesktop) {
-    margin: var(--space2XL) 0;
+    margin: 10px 0;
   }
 
   @media (--mediaTablet) {
     height: auto;
-    margin: var(--space3XL) 0;
+    margin: var(--space2XL) 0;
   }
 
   @media (--mediaMobile) {
@@ -48,7 +48,7 @@
   }
 
   @media (--mediaLaptop) {
-    --textColumnWidth: 42%;
+    --textColumnWidth: 32%;
   }
 
   @media (--mediaTablet) {
@@ -95,8 +95,9 @@
   overflow: visible;
 }
 
+/* BIGGER LAPTOP */
 .model {
-  --width: 125%;
+  --width: 195%;
   --aspectRatio: 12 / 10;
 
   width: var(--width);
@@ -110,22 +111,21 @@
     left: 0;
 
     @media (--mediaDesktop) {
-      --width: 125%;
+      --width: 160%;
     }
 
     @media (--mediaLaptop) {
-      --width: 115%;
+      --width: 150%;
     }
 
     @media (--mediaTablet) {
-      --width: 100%;
-
+      --width: 115%;
       top: 5%;
       left: 0;
     }
 
     @media (--mediaMobile) {
-      --width: 105%;
+      --width: 120%;
     }
   }
 
@@ -137,7 +137,7 @@
     left: 0;
 
     @media (--mediaDesktop) {
-      --width: 105%;
+      --width: 155%;
     }
 
     @media (--mediaLaptop) {
@@ -146,14 +146,12 @@
 
     @media (--mediaTablet) {
       --width: 108%;
-
       left: 0;
       max-height: 60vh;
     }
 
     @media (--mediaMobile) {
       --width: 108%;
-
       left: 0;
       max-height: none;
     }

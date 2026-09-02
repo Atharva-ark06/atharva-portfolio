@@ -6,6 +6,7 @@ import { ProjectSummary } from './project-summary';
 import { useEffect, useRef, useState } from 'react';
 import config from '~/config.json';
 import styles from './home.module.css';
+import { ParticleSCurve } from '~/components/particle-s-curve/particle-s-curve';
 
 // Prefetch draco decoder wasm
 export const links = () => {
@@ -85,10 +86,14 @@ export const Home = () => {
     );
 
     sections.forEach(section => {
-      sectionObserver.observe(section.current);
+      if (section.current) {
+        sectionObserver.observe(section.current);
+      }
     });
 
-    indicatorObserver.observe(intro.current);
+    if (intro.current) {
+      indicatorObserver.observe(intro.current);
+    }
 
     return () => {
       sectionObserver.disconnect();
@@ -98,85 +103,93 @@ export const Home = () => {
 
   return (
     <div className={styles.home}>
+      {/* HERO / INTRO */}
       <Intro
         id="intro"
         sectionRef={intro}
         scrollIndicatorHidden={scrollIndicatorHidden}
       />
 
-      {/* PROJECT 01 — OCEAN AI */}
-      <ProjectSummary
-        id="project-1"
-        sectionRef={projectOne}
-        visible={visibleSections.includes(projectOne.current)}
-        index={1}
-        title="Ocean AI"
-        description="An AI-powered ocean exploration platform combining interactive visualization, APIs, AI interaction, and image analysis."
-        buttonText="View project"
-        buttonLink="https://github.com/Atharva-ark06/Ocean-AI"
-        model={{
-          type: 'laptop',
-          alt: 'Ocean AI project',
-          textures: [
-            {
-              srcSet: '/static/ocean-ai.png',
-              placeholder: '/static/ocean-ai.png',
-            },
-          ],
-        }}
-      />
+      {/* PROJECT SECTION */}
+     <div className={styles.projectArea}>
+  <ParticleSCurve />
 
-      {/* PROJECT 02 — LPM NETWORK DEMONSTRATION */}
-      <ProjectSummary
-        id="project-2"
-        alternate
-        sectionRef={projectTwo}
-        visible={visibleSections.includes(projectTwo.current)}
-        index={2}
-        title="LPM Network Demonstration"
-        description="A cybersecurity-focused network project demonstrating Longest Prefix Match and route selection using virtualized network environments."
-        buttonText="View project"
-        buttonLink="https://github.com/Atharva-ark06/LPM-Network-Demonstration"
-        model={{
-          type: 'laptop',
-          alt: 'LPM Network Demonstration',
-          textures: [
-            {
-              srcSet: '/static/lpm-network.png',
-              placeholder: '/static/lpm-network.png',
-            },
-          ],
-        }}
-      />
+        {/* PROJECT 01 — OCEAN AI */}
+        <ProjectSummary
+          id="project-1"
+          sectionRef={projectOne}
+          visible={visibleSections.includes(projectOne.current)}
+          index={1}
+          title="Ocean AI"
+          description="An AI-powered ocean exploration platform combining interactive visualization, APIs, AI interaction, and image analysis."
+          buttonText="View project"
+          buttonLink="/projects"
+          model={{
+            type: 'laptop',
+            alt: 'Ocean AI project',
+            textures: [
+              {
+                srcSet: '/static/ocean-ai.png',
+                placeholder: '/static/ocean-ai.png',
+              },
+            ],
+          }}
+        />
 
-      {/* PROJECT 03 — C-MINUS COMPILER */}
-      <ProjectSummary
-        id="project-3"
-        sectionRef={projectThree}
-        visible={visibleSections.includes(projectThree.current)}
-        index={3}
-        title="C-Minus Compiler"
-        description="A functional, multi-phase compiler designed and implemented from scratch to demonstrate the core principles of compiler construction."
-        buttonText="View project"
-        buttonLink="https://github.com/Atharva-ark06/Custom-C-Minus-Compiler-Implementation"
-        model={{
-          type: 'laptop',
-          alt: 'C-Minus Compiler project',
-          textures: [
-            {
-              srcSet: '/static/c-compiler.png',
-              placeholder: '/static/c-compiler.png',
-            },
-          ],
-        }}
-      />
+        {/* PROJECT 02 — LPM NETWORK DEMONSTRATION */}
+        <ProjectSummary
+          id="project-2"
+          alternate
+          sectionRef={projectTwo}
+          visible={visibleSections.includes(projectTwo.current)}
+          index={2}
+          title="LPM Network Demonstration"
+          description="A cybersecurity-focused network project demonstrating Longest Prefix Match and route selection using virtualized network environments."
+          buttonText="View project"
+          buttonLink="/projects"
+          model={{
+            type: 'laptop',
+            alt: 'LPM Network Demonstration',
+            textures: [
+              {
+                srcSet: '/static/lpm-network.png',
+                placeholder: '/static/lpm-network.png',
+              },
+            ],
+          }}
+        />
 
+        {/* PROJECT 03 — C-MINUS COMPILER */}
+        <ProjectSummary
+          id="project-3"
+          sectionRef={projectThree}
+          visible={visibleSections.includes(projectThree.current)}
+          index={3}
+          title="C-Minus Compiler"
+          description="A functional, multi-phase compiler designed and implemented from scratch to demonstrate the core principles of compiler construction."
+          buttonText="View project"
+          buttonLink="/projects"
+          model={{
+            type: 'laptop',
+            alt: 'C-Minus Compiler project',
+            textures: [
+              {
+                srcSet: '/static/c-compiler.png',
+                placeholder: '/static/c-compiler.png',
+              },
+            ],
+          }}
+        />
+      </div>
+
+      {/* PROFILE */}
       <Profile
         sectionRef={details}
         visible={visibleSections.includes(details.current)}
         id="details"
       />
 
+      {/* FOOTER */}
       <Footer />
     </div>
   );
