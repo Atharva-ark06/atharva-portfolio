@@ -1,45 +1,24 @@
 .certificates {
-  min-height: 100vh;
-  padding: var(--space4XL) 0;
+  position: relative;
+  width: 100%;
 }
 
 .header {
-  width: min(100% - 48px, 1000px);
+  max-width: 720px;
   margin: 0 auto;
-  padding-top: var(--space2XL);
+  padding: 80px 24px 40px;
 }
 
 .label {
-  margin-bottom: var(--spaceL);
-  color: var(--primary);
+  display: block;
+  margin-bottom: 20px;
   letter-spacing: 0.08em;
-}
-
-.header h1 {
-  margin-bottom: var(--spaceL);
+  opacity: 0.6;
 }
 
 .intro {
   max-width: 600px;
-  margin-bottom: var(--space3XL);
-}
-
-.empty {
-  width: min(100% - 48px, 1000px);
-  margin: 0 auto;
-  padding: var(--space2XL);
-  border: 1px solid var(--textBody);
-  opacity: 0.5;
-  text-align: center;
-}
-
-@media (--mediaMobile) {
-  .certificates {
-    padding: var(--space3XL) 0;
-  }
-
-  .header,
-  .empty {
-    width: min(100% - 32px, 600px);
-  }
+  margin-top: 16px;
+  opacity: 0.65;
+  line-height: 1.7;
 }

@@ -1,7 +1,7 @@
 import { Heading } from '~/components/heading';
 import { Section } from '~/components/section';
 import { Text } from '~/components/text';
-import { CertificateShowcase } from '~/components/certificate-showcase/certificate-showcase';
+import CertificateShowcase from '~/components/certificate-showcase/certificate-showcase';
 import styles from './certificates.module.css';
 
 export const Certificates = () => {
@@ -17,8 +17,8 @@ export const Certificates = () => {
         </Heading>
 
         <Text className={styles.intro}>
-          A collection of certifications, achievements, and learning
-          milestones.
+          A collection of certifications, achievements, competitions,
+          and learning milestones.
         </Text>
       </div>
 

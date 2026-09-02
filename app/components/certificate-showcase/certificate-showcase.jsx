@@ -4,91 +4,129 @@ import styles from './certificate-showcase.module.css';
 
 const certificates = [
   {
-    title: 'Certificate 01',
-    description: 'Your first certificate',
+    title: 'Code Rush — HARD',
+    description: 'Code Rush certificate issued through HARP.',
     year: '2026',
     link: '#',
-    image: '/static/certificates/certificate-01.png',
+    image: '/static/certificates/code-rush.jpeg',
+    glow: 'blue',
   },
   {
-    title: 'Certificate 02',
-    description: 'Your second certificate',
+    title: 'Code Rush — UNSTOP',
+    description: 'Code Rush certificate issued through NSTOP.',
     year: '2026',
     link: '#',
-    image: '/static/certificates/certificate-02.png',
+    image: '/static/certificates/CODE-RUSH.png',
+    glow: 'purple',
   },
   {
-    title: 'Certificate 03',
-    description: 'Your third certificate',
+    title: 'Digital Essentials — Mastering',
+    description: 'Digital Essentials learning certificate.',
     year: '2026',
     link: '#',
-    image: '/static/certificates/certificate-03.png',
+    image: '/static/certificates/Digital-Essential -mastering.png',
+    glow: 'green',
   },
   {
-    title: 'Certificate 04',
-    description: 'Your fourth certificate',
+    title: 'Flipkart Warehouse Training',
+    description: 'Flipkart Warehouse Training — Day 1 to Day 5.',
     year: '2026',
     link: '#',
-    image: '/static/certificates/certificate-04.png',
+    image: '/static/certificates/Flipkart-warehouse training Day1-to-Day5.jpeg',
+    glow: 'orange',
   },
-
-  // SLOT 05
   {
-    title: 'Certificate 05',
-    description: 'Certificate slot — add your achievement later.',
-    year: '—',
+    title: 'Fundamentals of Cyber Security',
+    description: 'Fundamentals of Cyber Security certificate.',
+    year: '2026',
     link: '#',
-    image: null,
+    image: '/static/certificates/Fundamental of cyber-security.png',
+    glow: 'red',
   },
-
-  // SLOT 06
   {
-    title: 'Certificate 06',
-    description: 'Certificate slot — add your achievement later.',
-    year: '—',
+    title: 'Google Student Ambassador',
+    description: 'Google Student Ambassador achievement.',
+    year: '2026',
     link: '#',
-    image: null,
+    image: '/static/certificates/google student ambassador.png',
+    glow: 'blue',
   },
-
-  // SLOT 07
   {
-    title: 'Certificate 07',
-    description: 'Certificate slot — add your achievement later.',
-    year: '—',
+    title: 'Hack Kshetra 2.0',
+    description: 'Hack Kshetra 2.0 participation certificate.',
+    year: '2026',
     link: '#',
-    image: null,
+    image: '/static/certificates/Hack-Keshtra 2.0.jpeg',
+    glow: 'purple',
   },
-
-  // SLOT 08
   {
-    title: 'Certificate 08',
-    description: 'Certificate slot — add your achievement later.',
-    year: '—',
+    title: 'Kaggle Community Member',
+    description: 'Kaggle Community membership recognition.',
+    year: '2026',
     link: '#',
-    image: null,
+    image: '/static/certificates/Kaggle Community Member.png',
+    glow: 'green',
   },
-
-  // SLOT 09
   {
-    title: 'Certificate 09',
-    description: 'Certificate slot — add your achievement later.',
-    year: '—',
+    title: 'Network Security & Firewall',
+    description: 'Network Security and Firewall Operations certificate.',
+    year: '2026',
     link: '#',
-    image: null,
+    image: '/static/certificates/network security & firewall.png',
+    glow: 'blue',
   },
-
-  // SLOT 10
   {
-    title: 'Certificate 10',
-    description: 'Certificate slot — add your achievement later.',
-    year: '—',
+    title: 'NISM — SEBI',
+    description: 'NISM and SEBI certification.',
+    year: '2026',
     link: '#',
-    image: null,
+    image: '/static/certificates/NISM-SEBI.png',
+    glow: 'orange',
+  },
+  {
+    title: 'SCOA Academy',
+    description: 'SCOA Academy certificate and achievement.',
+    year: '2026',
+    link: '#',
+    image: '/static/certificates/SCOA-Academy.png',
+    glow: 'purple',
+  },
+  {
+    title: 'TATA Crucible Quiz',
+    description: 'TATA Crucible Quiz participation certificate.',
+    year: '2026',
+    link: '#',
+    image: '/static/certificates/TATA-crucible-quiz.png',
+    glow: 'red',
   },
 ];
 
+const glowColors = {
+  blue: {
+    base: 220,
+    spread: 200,
+  },
+  purple: {
+    base: 280,
+    spread: 300,
+  },
+  green: {
+    base: 120,
+    spread: 200,
+  },
+  red: {
+    base: 0,
+    spread: 200,
+  },
+  orange: {
+    base: 30,
+    spread: 200,
+  },
+};
+
 export function CertificateShowcase() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
+
   const [mousePosition, setMousePosition] = useState({
     x: 0,
     y: 0,
@@ -104,9 +142,9 @@ export function CertificateShowcase() {
   const containerRef = useRef(null);
   const animationRef = useRef(null);
 
-  // --------------------------------------------------
-  // SMOOTH CURSOR FOLLOW
-  // --------------------------------------------------
+  /* -------------------------------- */
+  /* SMOOTH CURSOR FOLLOW             */
+  /* -------------------------------- */
 
   useEffect(() => {
     const lerp = (start, end, factor) => {
@@ -119,12 +157,10 @@ export function CertificateShowcase() {
         y: lerp(prev.y, mousePosition.y, 0.15),
       }));
 
-      animationRef.current =
-        requestAnimationFrame(animate);
+      animationRef.current = requestAnimationFrame(animate);
     };
 
-    animationRef.current =
-      requestAnimationFrame(animate);
+    animationRef.current = requestAnimationFrame(animate);
 
     return () => {
       if (animationRef.current) {
@@ -133,9 +169,9 @@ export function CertificateShowcase() {
     };
   }, [mousePosition]);
 
-  // --------------------------------------------------
-  // MOUSE MOVE
-  // --------------------------------------------------
+  /* -------------------------------- */
+  /* MOUSE MOVE                       */
+  /* -------------------------------- */
 
   const handleMouseMove = event => {
     if (!containerRef.current) return;
@@ -149,23 +185,47 @@ export function CertificateShowcase() {
     });
   };
 
-  // --------------------------------------------------
-  // HOVER
-  // --------------------------------------------------
+  /* -------------------------------- */
+  /* CARD MOUSE MOVE                  */
+  /* -------------------------------- */
+
+  const handleCardMouseMove = event => {
+    const card = event.currentTarget;
+
+    const rect = card.getBoundingClientRect();
+
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    const xp = x / rect.width;
+    const yp = y / rect.height;
+
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
+    card.style.setProperty('--mouse-xp', xp.toFixed(3));
+    card.style.setProperty('--mouse-yp', yp.toFixed(3));
+  };
+
+  /* -------------------------------- */
+  /* HOVER                            */
+  /* -------------------------------- */
 
   const handleMouseEnter = index => {
     setHoveredIndex(index);
     setIsVisible(true);
   };
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = event => {
+    event.currentTarget.style.removeProperty('--mouse-x');
+    event.currentTarget.style.removeProperty('--mouse-y');
+
     setHoveredIndex(null);
     setIsVisible(false);
   };
 
-  // --------------------------------------------------
-  // CURRENT CERTIFICATE
-  // --------------------------------------------------
+  /* -------------------------------- */
+  /* CURRENT CERTIFICATE              */
+  /* -------------------------------- */
 
   const activeCertificate =
     hoveredIndex !== null
@@ -178,33 +238,20 @@ export function CertificateShowcase() {
       onMouseMove={handleMouseMove}
       className={styles.showcase}
     >
-      {/* -------------------------------------------- */}
-      {/* FOLLOWING CERTIFICATE PREVIEW */}
-      {/* -------------------------------------------- */}
+
+      {/* -------------------------------- */}
+      {/* FLOATING CERTIFICATE PREVIEW     */}
+      {/* -------------------------------- */}
 
       <div
         className={styles.preview}
         style={{
-          left:
-            containerRef.current?.getBoundingClientRect()
-              .left ?? 0,
-
-          top:
-            containerRef.current?.getBoundingClientRect()
-              .top ?? 0,
-
-          transform: `translate3d(
-            ${smoothPosition.x + 30}px,
-            ${smoothPosition.y - 120}px,
-            0
-          )`,
-
-          opacity: isVisible ? 1 : 0,
-
-          scale: isVisible ? 1 : 0.8,
-        }}
+  opacity: isVisible ? 1 : 0,
+  scale: isVisible ? 1 : 0.8,
+}}
       >
         <div className={styles.previewInner}>
+
           {activeCertificate?.image ? (
             <img
               src={activeCertificate.image}
@@ -228,17 +275,21 @@ export function CertificateShowcase() {
           )}
 
           <div className={styles.previewOverlay} />
+
         </div>
       </div>
 
-      {/* -------------------------------------------- */}
-      {/* CERTIFICATE LIST */}
-      {/* -------------------------------------------- */}
+      {/* -------------------------------- */}
+      {/* CERTIFICATE LIST                 */}
+      {/* -------------------------------- */}
 
       <div className={styles.list}>
+
         {certificates.map((certificate, index) => {
-          const isPlaceholder =
-            !certificate.image;
+
+          const glow =
+            glowColors[certificate.glow] ||
+            glowColors.blue;
 
           return (
             <a
@@ -248,80 +299,81 @@ export function CertificateShowcase() {
                   ? undefined
                   : certificate.link
               }
-              className={`${styles.item} ${
-                isPlaceholder
-                  ? styles.placeholderItem
-                  : ''
-              }`}
+
+              className={styles.item}
+
+              style={{
+                '--base': glow.base,
+                '--spread': glow.spread,
+              }}
+
               onMouseEnter={() =>
                 handleMouseEnter(index)
               }
+
               onMouseLeave={handleMouseLeave}
+
+              onMouseMove={handleCardMouseMove}
+
               onClick={event => {
                 if (certificate.link === '#') {
                   event.preventDefault();
                 }
               }}
             >
-              {/* Hover background */}
+
+              {/* GLOW BORDER */}
+
               <div
-                className={`${styles.highlight} ${
-                  hoveredIndex === index
-                    ? styles.highlightActive
-                    : ''
-                }`}
+                className={styles.glowBorder}
               />
 
-              <div className={styles.itemContent}>
-                {/* LEFT SIDE */}
-                <div className={styles.info}>
-                  <div className={styles.titleRow}>
-                    <h3 className={styles.title}>
-                      <span>
-                        {certificate.title}
+              {/* GLOW LIGHT */}
 
-                        <span
-                          className={`${styles.underline} ${
-                            hoveredIndex === index
-                              ? styles.underlineActive
-                              : ''
-                          }`}
-                        />
-                      </span>
+              <div
+                className={styles.glowLight}
+              />
+
+              {/* CARD CONTENT */}
+
+              <div className={styles.content}>
+
+                <div className={styles.info}>
+
+                  <div className={styles.titleRow}>
+
+                    <h3 className={styles.title}>
+                      {certificate.title}
+
+                      <span
+                        className={styles.underline}
+                      />
                     </h3>
 
                     <ArrowUpRight
-                      className={`${styles.arrow} ${
-                        hoveredIndex === index
-                          ? styles.arrowActive
-                          : ''
-                      }`}
+                      className={styles.arrow}
                     />
+
                   </div>
 
-                  <p className={styles.description}>
+                  <p>
                     {certificate.description}
                   </p>
+
                 </div>
 
-                {/* RIGHT SIDE */}
-                <div
-                  className={`${styles.year} ${
-                    hoveredIndex === index
-                      ? styles.yearActive
-                      : ''
-                  }`}
-                >
+                <div className={styles.year}>
                   {certificate.year}
                 </div>
+
               </div>
+
             </a>
           );
         })}
 
-        {/* Bottom border */}
-        <div className={styles.bottomBorder} />
       </div>
+
     </section>
   );
 }

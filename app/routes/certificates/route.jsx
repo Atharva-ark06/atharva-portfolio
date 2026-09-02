@@ -1,11 +1,5 @@
-import { baseMeta } from '~/utils/meta';
-import { Certificates } from './certificates';
+import { Certificates } from './certificates.jsx';
 
-export const meta = () => {
-  return baseMeta({
-    title: 'Certificates',
-    description: 'Certificates and achievements of Atharva Kulkarni.',
-  });
-};
-
-export default Certificates;
+export default function CertificatesRoute() {
+  return <Certificates />;
+}
