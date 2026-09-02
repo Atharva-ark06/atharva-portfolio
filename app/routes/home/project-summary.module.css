@@ -33,9 +33,9 @@
 }
 
 .content {
-  --textColumnWidth: 36%;
+  --textColumnWidth: 40%;
 
-  width: 100%;
+  width: min(100% - 48px, 1200px);
   max-width: var(--maxWidthL);
   align-items: center;
   justify-content: center;
@@ -48,10 +48,12 @@
   }
 
   @media (--mediaLaptop) {
-    --textColumnWidth: 40%;
+    --textColumnWidth: 42%;
   }
 
   @media (--mediaTablet) {
+    width: min(100% - 48px, 780px);
+
     .summary[data-alternate='true'] & {
       grid-template-columns: 100%;
     }
@@ -60,11 +62,17 @@
     flex-direction: column-reverse;
     height: auto;
   }
+
+  @media (--mediaMobile) {
+    width: min(100% - 32px, 600px);
+  }
 }
 
 .details {
   z-index: var(--zIndex1);
   position: relative;
+  width: 100%;
+  max-width: 500px;
 
   @media (--mediaTablet) {
     flex: 0 0 auto;
@@ -83,44 +91,57 @@
   justify-content: center;
   height: 100%;
   width: 100%;
+  min-width: 0;
+  overflow: visible;
 }
 
 .model {
-  --width: 180%;
+  --width: 125%;
   --aspectRatio: 12 / 10;
 
-  min-width: var(--width);
+  width: var(--width);
+  min-width: 0;
   aspect-ratio: var(--aspectRatio);
   display: grid;
   position: relative;
 
   &[data-device='laptop'] {
-    top: 6%;
-    left: 14%;
+    top: 0;
+    left: 0;
 
     @media (--mediaDesktop) {
-      --width: 180%;
+      --width: 125%;
+    }
+
+    @media (--mediaLaptop) {
+      --width: 115%;
     }
 
     @media (--mediaTablet) {
-      --width: 140%;
+      --width: 100%;
 
-      top: 10%;
+      top: 5%;
       left: 0;
+    }
+
+    @media (--mediaMobile) {
+      --width: 105%;
     }
   }
 
   &[data-device='phone'] {
-    --width: 116%;
+    --width: 105%;
     --aspectRatio: 7 / 10;
 
-    top: 5%;
-    left: -10%;
+    top: 0;
+    left: 0;
 
     @media (--mediaDesktop) {
-      --width: 108%;
+      --width: 105%;
+    }
 
-      left: 0;
+    @media (--mediaLaptop) {
+      --width: 100%;
     }
 
     @media (--mediaTablet) {
@@ -160,8 +181,8 @@
   &[data-device='laptop'] {
     position: absolute;
     width: 100%;
-    right: -36%;
-    bottom: 24%;
+    right: -20%;
+    bottom: 20%;
     transform: translateY(50%);
 
     @media (--mediaTablet) {
@@ -221,6 +242,7 @@
 
 .title {
   margin-bottom: var(--spaceL);
+  max-width: 520px;
   transition-property: opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);
@@ -240,6 +262,7 @@
 
 .description {
   margin-bottom: var(--spaceXL);
+  max-width: 500px;
   transition-property: opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);
