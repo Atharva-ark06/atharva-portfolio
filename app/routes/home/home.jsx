@@ -45,7 +45,13 @@ export const Home = () => {
   const details = useRef();
 
   useEffect(() => {
-    const sections = [intro, projectOne, projectTwo, projectThree, details];
+    const sections = [
+      intro,
+      projectOne,
+      projectTwo,
+      projectThree,
+      details,
+    ];
 
     const sectionObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -143,7 +149,7 @@ export const Home = () => {
         }}
       />
 
-      {/* PROJECT 03 — C COMPILER */}
+      {/* PROJECT 03 — C-MINUS COMPILER */}
       <ProjectSummary
         id="project-3"
         sectionRef={projectThree}
