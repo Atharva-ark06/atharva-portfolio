@@ -38,19 +38,49 @@ export const links = () => [
     type: 'font/woff2',
     crossOrigin: '',
   },
-  { rel: 'manifest', href: '/manifest.json' },
-  { rel: 'icon', href: '/favicon.ico' },
-  { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
-  { rel: 'shortcut_icon', href: '/shortcut.png', type: 'image/png', sizes: '64x64' },
-  { rel: 'apple-touch-icon', href: '/icon-256.png', sizes: '256x256' },
-  { rel: 'author', href: '/humans.txt', type: 'text/plain' },
+  {
+    rel: 'manifest',
+    href: '/manifest.json',
+  },
+  {
+    rel: 'icon',
+    href: '/favicon.ico',
+  },
+  {
+    rel: 'icon',
+    href: '/favicon.svg',
+    type: 'image/svg+xml',
+  },
+  {
+    rel: 'shortcut_icon',
+    href: '/shortcut.png',
+    type: 'image/png',
+    sizes: '64x64',
+  },
+  {
+    rel: 'apple-touch-icon',
+    href: '/icon-256.png',
+    sizes: '256x256',
+  },
+  {
+    rel: 'author',
+    href: '/humans.txt',
+    type: 'text/plain',
+  },
 ];
 
 export const loader = async ({ request, context }) => {
   const { url } = request;
   const { pathname } = new URL(url);
-  const pathnameSliced = pathname.endsWith('/') ? pathname.slice(0, -1) : url;
+
+  const pathnameSliced = pathname.endsWith('/')
+    ? pathname.slice(0, -1)
+    : pathname;
+
   const canonicalUrl = `${config.url}${pathnameSliced}`;
+
+  const sessionSecret =
+    context?.cloudflare?.env?.SESSION_SECRET || 'development-secret';
 
   const { getSession, commitSession } = createCookieSessionStorage({
     cookie: {
@@ -59,8 +89,12 @@ export const loader = async ({ request, context }) => {
       maxAge: 604_800,
       path: '/',
       sameSite: 'lax',
-      secrets: [context.cloudflare.env.SESSION_SECRET || ' '],
-      secure: true,
+      secrets: [sessionSecret],
+
+      // HTTPS is required for secure cookies in production.
+      // Keeping this false during local development allows
+      // the theme/session cookie to work on localhost.
+      secure: process.env.NODE_ENV === 'production',
     },
   });
 
@@ -68,7 +102,10 @@ export const loader = async ({ request, context }) => {
   const theme = session.get('theme') || 'dark';
 
   return json(
-    { canonicalUrl, theme },
+    {
+      canonicalUrl,
+      theme,
+    },
     {
       headers: {
         'Set-Cookie': await commitSession(session),
@@ -79,6 +116,7 @@ export const loader = async ({ request, context }) => {
 
 export default function App() {
   let { canonicalUrl, theme } = useLoaderData();
+
   const fetcher = useFetcher();
   const { state } = useNavigation();
 
@@ -88,8 +126,17 @@ export default function App() {
 
   function toggleTheme(newTheme) {
     fetcher.submit(
-      { theme: newTheme ? newTheme : theme === 'dark' ? 'light' : 'dark' },
-      { action: '/api/set-theme', method: 'post' }
+      {
+        theme: newTheme
+          ? newTheme
+          : theme === 'dark'
+            ? 'light'
+            : 'dark',
+      },
+      {
+        action: '/api/set-theme',
+        method: 'post',
+      }
     );
   }
 
@@ -104,25 +151,56 @@ export default function App() {
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1"
+        />
+
         {/* Theme color doesn't support oklch so I'm hard coding these hexes for now */}
-        <meta name="theme-color" content={theme === 'dark' ? '#111' : '#F2F2F2'} />
+        <meta
+          name="theme-color"
+          content={theme === 'dark' ? '#111' : '#F2F2F2'}
+        />
+
         <meta
           name="color-scheme"
           content={theme === 'light' ? 'light dark' : 'dark light'}
         />
-        <style dangerouslySetInnerHTML={{ __html: themeStyles }} />
+
+        <style
+          dangerouslySetInnerHTML={{
+            __html: themeStyles,
+          }}
+        />
+
         <Meta />
         <Links />
-        <link rel="canonical" href={canonicalUrl} />
+
+        <link
+          rel="canonical"
+          href={canonicalUrl}
+        />
       </head>
+
       <body data-theme={theme}>
-        <ThemeProvider theme={theme} toggleTheme={toggleTheme}>
+        <ThemeProvider
+          theme={theme}
+          toggleTheme={toggleTheme}
+        >
           <Progress />
-          <VisuallyHidden showOnFocus as="a" className={styles.skip} href="#main-content">
+
+          <VisuallyHidden
+            showOnFocus
+            as="a"
+            className={styles.skip}
+            href="#main-content"
+          >
             Skip to main content
           </VisuallyHidden>
+
           <Navbar />
+
           <main
             id="main-content"
             className={styles.container}
@@ -132,6 +210,7 @@ export default function App() {
             <Outlet />
           </main>
         </ThemeProvider>
+
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -146,15 +225,35 @@ export function ErrorBoundary() {
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#111" />
-        <meta name="color-scheme" content="dark light" />
-        <style dangerouslySetInnerHTML={{ __html: themeStyles }} />
+
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1"
+        />
+
+        <meta
+          name="theme-color"
+          content="#111"
+        />
+
+        <meta
+          name="color-scheme"
+          content="dark light"
+        />
+
+        <style
+          dangerouslySetInnerHTML={{
+            __html: themeStyles,
+          }}
+        />
+
         <Meta />
         <Links />
       </head>
+
       <body data-theme="dark">
         <Error error={error} />
+
         <ScrollRestoration />
         <Scripts />
       </body>

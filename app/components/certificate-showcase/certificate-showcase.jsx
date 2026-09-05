@@ -13,7 +13,7 @@ const certificates = [
   },
   {
     title: 'Code Rush — UNSTOP',
-    description: 'Code Rush certificate issued through NSTOP.',
+    description: 'Code Rush certificate issued through UNSTOP.',
     year: '2026',
     link: '#',
     image: '/static/certificates/CODE-RUSH.png',
@@ -99,6 +99,15 @@ const certificates = [
     image: '/static/certificates/TATA-crucible-quiz.png',
     glow: 'red',
   },
+  {
+    title: 'SCOA Data Entry Operator (DEO) Training Program',
+    description: 'SCOA Data Entry Operator (DEO) Training Program certificate.',
+    year: '2025',
+    link: '#',
+    image: '/static/certificates/SCOA-Data-Entry-Operator-DEO-Training-Program.png',
+    glow: 'red',
+  }
+  
 ];
 
 const glowColors = {

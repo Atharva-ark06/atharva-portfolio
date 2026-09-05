@@ -4,6 +4,11 @@ export async function action({ request, context }) {
   const formData = await request.formData();
   const theme = formData.get('theme');
 
+  const sessionSecret =
+    context?.cloudflare?.env?.SESSION_SECRET || 'development-secret';
+
+  const isSecure = new URL(request.url).protocol === 'https:';
+
   const { getSession, commitSession } = createCookieSessionStorage({
     cookie: {
       name: '__session',
@@ -11,12 +16,13 @@ export async function action({ request, context }) {
       maxAge: 604_800,
       path: '/',
       sameSite: 'lax',
-      secrets: [context.cloudflare.env.SESSION_SECRET || ' '],
-      secure: true,
+      secrets: [sessionSecret],
+      secure: isSecure,
     },
   });
 
   const session = await getSession(request.headers.get('Cookie'));
+
   session.set('theme', theme);
 
   return json(
