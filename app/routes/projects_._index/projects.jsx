@@ -5,7 +5,7 @@ import { Text } from '~/components/text';
 import { deviceModels } from '~/components/model/device-models';
 import { Loader } from '~/components/loader';
 import { TubesCursor } from '~/components/tubes-cursor/tubes-cursor';
-import { Suspense, lazy, useState } from 'react';
+import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import styles from './projects.module.css';
 
 const Model = lazy(() =>
@@ -21,7 +21,6 @@ const projects = [
     github:
       'https://github.com/Atharva-ark06/XYZ-Insta-Neural-Social-Hub',
   },
-
   {
     title: 'Ocean AI',
     description:
@@ -29,7 +28,6 @@ const projects = [
     image: '/static/ocean-ai.png',
     github: 'https://github.com/Atharva-ark06/Ocean-AI',
   },
-
   {
     title: 'LPM Network Demonstration',
     description:
@@ -38,7 +36,6 @@ const projects = [
     github:
       'https://github.com/Atharva-ark06/LPM-Network-Demonstration',
   },
-
   {
     title: 'C-Minus Compiler',
     description:
@@ -51,35 +48,55 @@ const projects = [
 
 function ProjectLaptop({ project }) {
   const [loaded, setLoaded] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const wrapperRef = useRef(null);
+
+  useEffect(() => {
+    const element = wrapperRef.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '300px 0px' }
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className={styles.modelWrapper}>
+    <div ref={wrapperRef} className={styles.modelWrapper}>
       {!loaded && (
-        <Loader
-          center
-          className={styles.loader}
-        />
+        <Loader center className={styles.loader} />
       )}
 
-      <Suspense fallback={null}>
-        <Model
-          alt={`${project.title} displayed on laptop`}
-          cameraPosition={{ x: 0, y: 0, z: 8 }}
-          show
-          showDelay={300}
-          onLoad={() => setLoaded(true)}
-          models={[
-            {
-              ...deviceModels.laptop,
-              texture: {
-                srcSet: project.image,
-                placeholder: project.image,
-                sizes: '(max-width: 768px) 90vw, 45vw',
+      {visible && (
+        <Suspense fallback={null}>
+          <Model
+            alt={`${project.title} displayed on laptop`}
+            cameraPosition={{ x: 0, y: 0, z: 8 }}
+            show
+            showDelay={300}
+            onLoad={() => setLoaded(true)}
+            models={[
+              {
+                ...deviceModels.laptop,
+                texture: {
+                  srcSet: project.image,
+                  placeholder: project.image,
+                  sizes: '(max-width: 768px) 90vw, 45vw',
+                },
               },
-            },
-          ]}
-        />
-      </Suspense>
+            ]}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }
@@ -87,7 +104,6 @@ function ProjectLaptop({ project }) {
 export function Projects() {
   return (
     <Section className={styles.projects}>
-
       {/* CURSOR EFFECT — PROJECTS SECTION ONLY */}
       <div className={styles.cursorBackground}>
         <TubesCursor />
@@ -110,12 +126,10 @@ export function Projects() {
             data-alternate={index % 2 === 1}
             key={project.title}
           >
-            {/* LAPTOP */}
             <div className={styles.preview}>
               <ProjectLaptop project={project} />
             </div>
 
-            {/* CONTENT */}
             <div className={styles.content}>
               <div className={styles.projectNumber}>
                 {String(index + 1).padStart(2, '0')}
