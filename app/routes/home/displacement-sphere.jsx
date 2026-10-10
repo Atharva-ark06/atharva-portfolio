@@ -1,3 +1,4 @@
+
 import { useTheme } from '~/components/theme-provider';
 import { Transition } from '~/components/transition';
 import { useReducedMotion, useSpring } from 'framer-motion';
@@ -51,9 +52,7 @@ export const DisplacementSphere = props => {
   const rotationX = useSpring(0, springConfig);
   const rotationY = useSpring(0, springConfig);
 
-  /*
-   * Create WebGL scene
-   */
+  // Create WebGL scene
   useEffect(() => {
     if (!canvasRef.current) return;
 
@@ -66,15 +65,11 @@ export const DisplacementSphere = props => {
       antialias: false,
       alpha: true,
       powerPreference: 'high-performance',
-      failIfMajorPerformanceCaveat: false,
+      failIfMajorPerformanceCaveat: true,
     });
 
-    /*
-     * Keep the WebGL buffer dimensions identical
-     * to the CSS canvas dimensions.
-     */
+    webglRenderer.setSize(innerWidth, innerHeight);
     webglRenderer.setPixelRatio(1);
-    webglRenderer.setSize(innerWidth, innerHeight, false);
     webglRenderer.outputColorSpace = LinearSRGBColorSpace;
 
     renderer.current = webglRenderer;
@@ -83,21 +78,16 @@ export const DisplacementSphere = props => {
       54,
       innerWidth / innerHeight,
       0.1,
-      110
+      100
     );
 
-    webglCamera.position.z = 29;
-
+    webglCamera.position.z = 52;
     camera.current = webglCamera;
 
     const webglScene = new Scene();
-
     scene.current = webglScene;
 
-    const phongMaterial = new MeshPhongMaterial({
-      transparent: true,
-      opacity: 4,
-    });
+    const phongMaterial = new MeshPhongMaterial();
 
     phongMaterial.onBeforeCompile = shader => {
       uniforms.current = UniformsUtils.merge([
@@ -111,7 +101,6 @@ export const DisplacementSphere = props => {
       ]);
 
       shader.uniforms = uniforms.current;
-
       shader.vertexShader = vertexShader;
       shader.fragmentShader = fragmentShader;
     };
@@ -121,7 +110,7 @@ export const DisplacementSphere = props => {
     startTransition(() => {
       if (!scene.current || !material.current) return;
 
-      geometry.current = new SphereGeometry(30, 96, 96);
+      geometry.current = new SphereGeometry(32, 128, 128);
 
       sphere.current = new Mesh(
         geometry.current,
@@ -153,9 +142,7 @@ export const DisplacementSphere = props => {
     };
   }, []);
 
-  /*
-   * Lighting
-   */
+  // Lighting
   useEffect(() => {
     if (!scene.current) return;
 
@@ -185,9 +172,7 @@ export const DisplacementSphere = props => {
     };
   }, [theme]);
 
-  /*
-   * Resize WebGL renderer without stretching.
-   */
+  // Resize renderer using original dimensions
   useEffect(() => {
     if (
       !renderer.current ||
@@ -201,25 +186,13 @@ export const DisplacementSphere = props => {
 
     if (!width || !height) return;
 
-    /*
-     * IMPORTANT:
-     * The renderer and camera now use the exact same
-     * width/height ratio as the displayed canvas.
-     *
-     * This prevents the sphere from becoming a rectangle.
-     */
-    renderer.current.setSize(
-      width,
-      height,
-      false
-    );
+    const adjustedHeight = height + height * 0.3;
 
-    camera.current.aspect = width / height;
+    renderer.current.setSize(width, adjustedHeight);
+    camera.current.aspect = width / adjustedHeight;
     camera.current.updateProjectionMatrix();
 
-    /*
-     * Responsive sphere positioning.
-     */
+    // Responsive sphere positioning
     if (width <= media.mobile) {
       sphere.current.position.x = 14;
       sphere.current.position.y = 10;
@@ -239,9 +212,7 @@ export const DisplacementSphere = props => {
     }
   }, [reduceMotion, windowSize]);
 
-  /*
-   * Mouse interaction
-   */
+  // Mouse interaction
   useEffect(() => {
     const onMouseMove = throttle(event => {
       const position = {
@@ -267,9 +238,7 @@ export const DisplacementSphere = props => {
     rotationY,
   ]);
 
-  /*
-   * Animation loop
-   */
+  // Animation loop
   useEffect(() => {
     if (
       !renderer.current ||
