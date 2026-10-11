@@ -108,8 +108,9 @@ const tokensMobileSmall = {
 
 // Tokens that change based on theme
 const dark = {
-  background: 'oklch(17.76% 0 0)',
-  backgroundLight: 'oklch(21.78% 0 0)',
+  // Dark mode uses a true black page background and white foreground text.
+  background: 'var(--black)',
+  backgroundLight: 'oklch(12% 0 0)',
   primary: 'oklch(84.42% 0.19 202.24)',
   accent: 'oklch(84.42% 0.19 202.24)',
   error: 'oklch(65.91% 0.249 13.76)',
