@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-label="Tropical Coast" preserveAspectRatio="xMidYMid slice">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0c4354"/><stop offset="1" stop-color="#ffd3a0"/></linearGradient><radialGradient id="glow"><stop offset="0" stop-color="#ffd3a0" stop-opacity=".65"/><stop offset="1" stop-color="#ffd3a0" stop-opacity="0"/></radialGradient><filter id="soft"><feGaussianBlur stdDeviation="26"/></filter></defs>
+<rect width="900" height="600" fill="url(#sky)"/><ellipse cx="415" cy="200" rx="190" ry="130" fill="url(#glow)"/><circle cx="545" cy="175" r="25" fill="#ffd3a0" opacity=".78"/>
+<g opacity=".26" fill="#fff"><circle cx="90" cy="85" r="2"/><circle cx="210" cy="60" r="1.5"/><circle cx="420" cy="95" r="2"/><circle cx="780" cy="70" r="1.5"/><circle cx="610" cy="125" r="1.5"/></g>
+<path d="M0 345 L150 270 290 335 410 245 560 325 700 255 900 335 V600H0Z" fill="#3baca1"/><path d="M0 395 Q180 350 340 405 T650 385 T900 395 V600H0Z" fill="#14444b"/><path d="M0 445 Q210 420 420 448 T900 440 V600H0Z" fill="#197a87"/><path d="M0 480 Q210 455 420 483 T900 475" fill="none" stroke="#b2eee0" stroke-width="4"/>
+<rect width="900" height="600" fill="url(#sky)" opacity=".08"/>
+</svg>
