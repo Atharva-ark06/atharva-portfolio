@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-label="Glacial Lake" preserveAspectRatio="xMidYMid slice">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d394c"/><stop offset="1" stop-color="#b5f0e7"/></linearGradient><radialGradient id="glow"><stop offset="0" stop-color="#b5f0e7" stop-opacity=".65"/><stop offset="1" stop-color="#b5f0e7" stop-opacity="0"/></radialGradient><filter id="soft"><feGaussianBlur stdDeviation="26"/></filter></defs>
+<rect width="900" height="600" fill="url(#sky)"/><ellipse cx="274" cy="143" rx="190" ry="130" fill="url(#glow)"/><circle cx="632" cy="136" r="33" fill="#b5f0e7" opacity=".78"/>
+<g opacity=".26" fill="#fff"><circle cx="90" cy="85" r="2"/><circle cx="210" cy="60" r="1.5"/><circle cx="420" cy="95" r="2"/><circle cx="780" cy="70" r="1.5"/><circle cx="610" cy="125" r="1.5"/></g>
+<path d="M0 300 L120 190 210 265 360 130 500 280 630 160 790 275 900 200 V600H0Z" fill="#4d9dba"/><path d="M0 370 Q180 320 350 380 T680 355 T900 370 V600H0Z" fill="#123344"/><path d="M0 420 Q220 390 450 430 T900 420 V600H0Z" fill="#2b8795" opacity=".8"/><path d="M0 465 Q220 440 450 475 T900 465" fill="none" stroke="#b5f0e7" stroke-width="5" opacity=".7"/>
+<rect width="900" height="600" fill="url(#sky)" opacity=".08"/>
+</svg>
