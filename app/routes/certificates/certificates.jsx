@@ -3,6 +3,7 @@ import { Section } from '~/components/section';
 import { Text } from '~/components/text';
 import CertificateShowcase from '~/components/certificate-showcase/certificate-showcase';
 import styles from './certificates.module.css';
+import MorphGallery from '~/components/morph-gallery/morph-gallery';
 
 export const Certificates = () => {
   return (
@@ -21,8 +22,9 @@ export const Certificates = () => {
           and learning milestones.
         </Text>
       </div>
+<MorphGallery />
 
-      <CertificateShowcase />
+
     </Section>
   );
 };
