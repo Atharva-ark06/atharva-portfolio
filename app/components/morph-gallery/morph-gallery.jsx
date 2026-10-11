@@ -10,7 +10,7 @@ const certificates = [
     category: 'ACHIEVEMENT',
     description:
       'A visual recognition of completing the ethical hacking capstone learning milestone.',
-    image: '/static/morph-gallery/forest.jpg',
+    image: '/static/morph-gallery/forest-dawn.svg',
     thumbnail: '/static/morph-gallery/forest-thumb.jpg',
     certificateImage:
       '/static/certificates/ethical-hacking-capstone-ai-badge.png',
@@ -21,7 +21,7 @@ const certificates = [
     category: 'ADVANCED SECURITY',
     description:
       'A further learning milestone in cybersecurity architecture and secure systems.',
-    image: '/static/morph-gallery/mountain-night.jpg',
+    image: '/static/morph-gallery/mountain-night.svg',
     thumbnail: '/static/morph-gallery/mountain-night-thumb.jpg',
     certificateImage:
       '/static/certificates/cybersecurity-architecture-v2.png',
@@ -32,7 +32,7 @@ const certificates = [
     category: 'CLOUD SECURITY',
     description:
       'Exploring security principles and protection strategies for cloud environments.',
-    image: '/static/morph-gallery/mountain-lake.jpg',
+    image: '/static/morph-gallery/mountain-lake.svg',
     thumbnail: '/static/morph-gallery/mountain-lake-thumb.jpg',
     certificateImage:
       '/static/certificates/cloud-security-principles.png',
@@ -43,7 +43,7 @@ const certificates = [
     category: 'SECURITY ARCHITECTURE',
     description:
       'Understanding security architecture, defensive design, and system protection.',
-    image: '/static/morph-gallery/green-hills.jpg',
+    image: '/static/morph-gallery/green-hills.svg',
     thumbnail: '/static/morph-gallery/green-hills-thumb.jpg',
     certificateImage:
       '/static/certificates/cybersecurity-architecture.png',
@@ -54,7 +54,7 @@ const certificates = [
     category: 'SECURITY TOOLS',
     description:
       'Building familiarity with tools and technologies used across cybersecurity workflows.',
-    image: '/static/morph-gallery/wildflowers.jpg',
+    image: '/static/morph-gallery/wildflowers.svg',
     thumbnail: '/static/morph-gallery/wildflowers-thumb.jpg',
     certificateImage:
       '/static/certificates/cybersecurity-tools-technologies.png',
@@ -65,7 +65,7 @@ const certificates = [
     category: 'ETHICAL HACKING',
     description:
       'A capstone learning milestone focused on ethical hacking concepts and practical security.',
-    image: '/static/morph-gallery/tropical-beach.jpg',
+    image: '/static/morph-gallery/tropical-beach.svg',
     thumbnail: '/static/morph-gallery/tropical-beach-thumb.jpg',
     certificateImage:
       '/static/certificates/ethical-hacking-capstone-ai.png',
@@ -75,7 +75,7 @@ const certificates = [
     title: 'Fundamentals of Cybersecurity',
     category: 'CYBERSECURITY',
     description: 'Certificate in foundational cybersecurity concepts.',
-    image: '/static/morph-gallery/forest.jpg',
+    image: '/static/morph-gallery/red-rock.svg',
     thumbnail: '/static/morph-gallery/forest-thumb.jpg',
     certificateImage: '/static/certificates/Fundamental%20of%20cyber-security.png',
     pdf: null,
@@ -84,7 +84,7 @@ const certificates = [
     title: 'Network Security and Firewall',
     category: 'NETWORK SECURITY',
     description: 'Learning milestone in network security and firewall operations.',
-    image: '/static/morph-gallery/mountain-night.jpg',
+    image: '/static/morph-gallery/aurora-ridge.svg',
     thumbnail: '/static/morph-gallery/mountain-night-thumb.jpg',
     certificateImage: '/static/certificates/network%20security%20%26%20firewall.png',
     pdf: null,
@@ -93,7 +93,7 @@ const certificates = [
     title: 'Hack Kshetra 2.0',
     category: 'HACKATHON',
     description: 'Hackathon participation and achievement.',
-    image: '/static/morph-gallery/green-hills.jpg',
+    image: '/static/morph-gallery/misty-waterfall.svg',
     thumbnail: '/static/morph-gallery/green-hills-thumb.jpg',
     certificateImage: '/static/certificates/Hack-Keshtra%202.0.jpeg',
     pdf: null,
@@ -102,7 +102,7 @@ const certificates = [
     title: 'NISM–SEBI',
     category: 'FINANCIAL LITERACY',
     description: 'Certificate related to financial markets and securities awareness.',
-    image: '/static/morph-gallery/mountain-lake.jpg',
+    image: '/static/morph-gallery/golden-dunes.svg',
     thumbnail: '/static/morph-gallery/mountain-lake-thumb.jpg',
     certificateImage: '/static/certificates/NISM-SEBI.png',
     pdf: null,
@@ -111,7 +111,7 @@ const certificates = [
     title: 'Tata Crucible Quiz',
     category: 'COMPETITION',
     description: 'Participation in the Tata Crucible quiz.',
-    image: '/static/morph-gallery/wildflowers.jpg',
+    image: '/static/morph-gallery/moonlit-pines.svg',
     thumbnail: '/static/morph-gallery/wildflowers-thumb.jpg',
     certificateImage: '/static/certificates/TATA-crucible-quiz.png',
     pdf: null,
