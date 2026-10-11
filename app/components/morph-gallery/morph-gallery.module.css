@@ -10,7 +10,8 @@
   color: var(--text, #fff);
 }
 
-:global([data-theme='light']) .gallery,\n:global(body.light) .gallery {
+:global([data-theme='light']) .gallery,
+:global(body.light) .gallery {
   --gallery-ink: #f8fbff;
   --gallery-muted: rgba(248, 251, 255, 0.86);
   --gallery-surface: rgba(7, 22, 39, 0.76);
@@ -401,11 +402,13 @@
   .thumbnailRail {
     grid-template-columns: repeat(11, 82px);
     gap: 8px;
+    scroll-snap-type: x proximity;
     overflow-x: auto;
   }
 
   .thumbnail {
     height: 66px;
+    scroll-snap-align: start;
   }
 }
 
