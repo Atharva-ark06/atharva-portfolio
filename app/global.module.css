@@ -21,8 +21,8 @@
     transition: var(--durationM) ease;
     transition-property: background, opacity;
     color: var(--textBody);
-    width: 100vw;
-    overflow-x: hidden;
+    width: 100%;
+    overflow-x: clip;
     opacity: 1;
 
     &:focus {
