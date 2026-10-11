@@ -96,7 +96,7 @@ export const Model = ({
       alpha: true,
       antialias: false,
       powerPreference: 'high-performance',
-      failIfMajorPerformanceCaveat: true,
+      failIfMajorPerformanceCaveat: false,
     });
 
     renderer.current.setPixelRatio(2);
@@ -366,7 +366,7 @@ const Device = ({
 }) => {
   const [loadDevice, setLoadDevice] = useState();
   const reduceMotion = useReducedMotion();
-  const placeholderScreen = createRef();
+  const placeholderScreen = useRef(null);
 
   useEffect(() => {
     const applyScreenTexture = async (texture, node) => {
@@ -386,12 +386,14 @@ const Device = ({
     // Generate promises to await when ready
     const load = async () => {
       const { texture, position, url } = model;
-      let loadFullResTexture;
-      let playAnimation;
+      let loadFullResTexture = async () => {};
+      let playAnimation = () => {};
 
       const [placeholder, gltf] = await Promise.all([
-        await textureLoader.loadAsync(texture.placeholder),
-        await modelLoader.loadAsync(url),
+        texture?.placeholder
+          ? textureLoader.loadAsync(texture.placeholder)
+          : Promise.resolve(null),
+        modelLoader.loadAsync(url),
       ]);
 
       modelGroup.current.add(gltf.scene);
@@ -401,7 +403,7 @@ const Device = ({
           node.material.color = new Color(0x1f2025);
         }
 
-        if (node.name === MeshType.Screen) {
+        if (node.name === MeshType.Screen && placeholder && texture) {
           // Create a copy of the screen mesh so we can fade it out
           // over the full resolution screen texture
           placeholderScreen.current = node.clone();
@@ -463,9 +465,16 @@ const Device = ({
       // Swing the laptop lid open
       if (model.animation === ModelAnimationType.LaptopOpen) {
         playAnimation = () => {
-          const frameNode = gltf.scene.children.find(
-            node => node.name === MeshType.Frame
-          );
+          let frameNode;
+          gltf.scene.traverse(node => {
+            if (!frameNode && node.name === MeshType.Frame) frameNode = node;
+          });
+          if (!frameNode) {
+            gltf.scene.position.set(...targetPosition.toArray());
+            renderFrame();
+            return;
+          }
+
           const startRotation = new Vector3(MathUtils.degToRad(90), 0, 0);
           const endRotation = new Vector3(0, 0, 0);
 
