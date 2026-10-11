@@ -29,26 +29,8 @@ export default defineConfig({
   },
 
   ssr: {
-    target: 'webworker',
-
-    resolve: {
-      conditions: [
-        'worker',
-        'browser',
-        'module',
-        'import',
-        'default',
-      ],
-
-      externalConditions: [
-        'worker',
-        'browser',
-        'module',
-        'import',
-        'default',
-      ],
-    },
-  },
+  target: 'node',
+},
 
   plugins: [
     mdx({
