@@ -1,4 +1,9 @@
 .intro {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  background: var(--background);
+  color: var(--textBody);
   height: 100vh;
   display: flex;
   align-items: center;
@@ -7,10 +12,12 @@
 }
 
 .text {
+  z-index: 1;
   max-width: 1024px;
   width: min(100% - 48px, 1024px);
   position: relative;
   top: calc(var(--spaceL) * -1);
+  margin-inline: auto;
 
   @media (--mediaDesktop) {
     max-width: 920px;
