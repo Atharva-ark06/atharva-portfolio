@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-label="Golden Dunes" preserveAspectRatio="xMidYMid slice">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#70434a"/><stop offset="1" stop-color="#ffe0a1"/></linearGradient><radialGradient id="glow"><stop offset="0" stop-color="#ffe0a1" stop-opacity=".65"/><stop offset="1" stop-color="#ffe0a1" stop-opacity="0"/></radialGradient><filter id="soft"><feGaussianBlur stdDeviation="26"/></filter></defs>
+<rect width="900" height="600" fill="url(#sky)"/><ellipse cx="603" cy="156" rx="190" ry="130" fill="url(#glow)"/><circle cx="429" cy="227" r="41" fill="#ffe0a1" opacity=".78"/>
+<g opacity=".26" fill="#fff"><circle cx="90" cy="85" r="2"/><circle cx="210" cy="60" r="1.5"/><circle cx="420" cy="95" r="2"/><circle cx="780" cy="70" r="1.5"/><circle cx="610" cy="125" r="1.5"/></g>
+<path d="M0 330 Q150 270 290 340 T600 320 T900 330 V600H0Z" fill="#d59a68"/><path d="M0 410 Q180 365 350 410 T700 395 T900 405 V600H0Z" fill="#513b4c"/><path d="M0 460 Q220 430 450 462 T900 455" fill="none" stroke="#ffe6ac" stroke-width="5" opacity=".75"/><path d="M70 470 Q260 430 420 470" fill="none" stroke="#f3c58c" stroke-width="12" opacity=".6"/>
+<rect width="900" height="600" fill="url(#sky)" opacity=".08"/>
+</svg>
