@@ -148,7 +148,7 @@ export default function App() {
   }, []);
 
   return (
-    <html lang="en">
+    <html lang="en" data-theme={theme}>
       <head>
         <meta charSet="utf-8" />
 
@@ -160,7 +160,7 @@ export default function App() {
         {/* Theme color doesn't support oklch so I'm hard coding these hexes for now */}
         <meta
           name="theme-color"
-          content={theme === 'dark' ? '#111' : '#F2F2F2'}
+          content={theme === 'dark' ? '#000000' : '#F2F2F2'}
         />
 
         <meta
@@ -222,7 +222,7 @@ export function ErrorBoundary() {
   const error = useRouteError();
 
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dark">
       <head>
         <meta charSet="utf-8" />
 
