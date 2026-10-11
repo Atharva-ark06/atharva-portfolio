@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-label="Misty Waterfall" preserveAspectRatio="xMidYMid slice">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#183b43"/><stop offset="1" stop-color="#d3eee0"/></linearGradient><radialGradient id="glow"><stop offset="0" stop-color="#d3eee0" stop-opacity=".65"/><stop offset="1" stop-color="#d3eee0" stop-opacity="0"/></radialGradient><filter id="soft"><feGaussianBlur stdDeviation="26"/></filter></defs>
+<rect width="900" height="600" fill="url(#sky)"/><ellipse cx="556" cy="137" rx="190" ry="130" fill="url(#glow)"/><circle cx="458" cy="214" r="37" fill="#d3eee0" opacity=".78"/>
+<g opacity=".26" fill="#fff"><circle cx="90" cy="85" r="2"/><circle cx="210" cy="60" r="1.5"/><circle cx="420" cy="95" r="2"/><circle cx="780" cy="70" r="1.5"/><circle cx="610" cy="125" r="1.5"/></g>
+<path d="M0 325 L110 230 210 300 350 150 510 320 660 205 800 310 900 250 V600H0Z" fill="#5f9f9c"/><path d="M0 390 Q180 330 360 390 T700 365 T900 390 V600H0Z" fill="#183c42"/><path d="M455 170 Q430 270 475 350 L520 390 L510 600H410L430 400 390 340 415 220Z" fill="#b9e8e6" opacity=".75"/><path d="M450 220 Q430 305 460 370" fill="none" stroke="#effff8" stroke-width="8"/>
+<rect width="900" height="600" fill="url(#sky)" opacity=".08"/>
+</svg>
