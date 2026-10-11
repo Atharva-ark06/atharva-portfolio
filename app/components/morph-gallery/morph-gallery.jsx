@@ -237,6 +237,9 @@ useEffect(() => {
     <img
       src={active.certificateImage}
       alt={`${active.title} certificate preview`}
+      onError={(event) => {
+        event.currentTarget.closest('div').style.display = 'none';
+      }}
     />
   </div>
 
@@ -305,7 +308,7 @@ useEffect(() => {
             }
           >
             <img
-              src={certificate.thumbnail}
+              src={certificate.certificateImage}
               alt=""
               loading="lazy"
             />
