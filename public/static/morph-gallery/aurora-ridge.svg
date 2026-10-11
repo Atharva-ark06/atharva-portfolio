@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-label="Aurora Ridge" preserveAspectRatio="xMidYMid slice">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#101d38"/><stop offset="1" stop-color="#9fffe2"/></linearGradient><radialGradient id="glow"><stop offset="0" stop-color="#9fffe2" stop-opacity=".65"/><stop offset="1" stop-color="#9fffe2" stop-opacity="0"/></radialGradient><filter id="soft"><feGaussianBlur stdDeviation="26"/></filter></defs>
+<rect width="900" height="600" fill="url(#sky)"/><ellipse cx="509" cy="118" rx="190" ry="130" fill="url(#glow)"/><circle cx="487" cy="201" r="33" fill="#9fffe2" opacity=".78"/>
+<g opacity=".26" fill="#fff"><circle cx="90" cy="85" r="2"/><circle cx="210" cy="60" r="1.5"/><circle cx="420" cy="95" r="2"/><circle cx="780" cy="70" r="1.5"/><circle cx="610" cy="125" r="1.5"/></g>
+<path d="M0 350 L130 240 255 325 370 180 510 310 650 200 790 325 900 245 V600H0Z" fill="#4c7b8f"/><path d="M0 410 Q180 350 360 410 T700 390 T900 405 V600H0Z" fill="#1b2946"/><path d="M90 180 Q220 115 350 175 T610 155 T820 170" fill="none" stroke="#9fffe2" stroke-width="13" opacity=".65"/><path d="M130 205 Q260 140 390 200 T650 180 T860 195" fill="none" stroke="#b8a7ff" stroke-width="5" opacity=".7"/>
+<rect width="900" height="600" fill="url(#sky)" opacity=".08"/>
+</svg>
