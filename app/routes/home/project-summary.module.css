@@ -92,12 +92,11 @@
   height: 100%;
   width: 100%;
   min-width: 0;
-  overflow: visible;
+  overflow: clip;
 }
 
-/* BIGGER LAPTOP */
 .model {
-  --width: 195%;
+  --width: 100%;
   --aspectRatio: 12 / 10;
 
   width: var(--width);
@@ -111,21 +110,21 @@
     left: 0;
 
     @media (--mediaDesktop) {
-      --width: 160%;
+      --width: 100%;
     }
 
     @media (--mediaLaptop) {
-      --width: 150%;
+      --width: 100%;
     }
 
     @media (--mediaTablet) {
-      --width: 115%;
+      --width: 100%;
       top: 5%;
       left: 0;
     }
 
     @media (--mediaMobile) {
-      --width: 120%;
+      --width: 100%;
     }
   }
 
