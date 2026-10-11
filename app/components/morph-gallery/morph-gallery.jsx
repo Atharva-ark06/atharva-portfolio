@@ -305,7 +305,7 @@ useEffect(() => {
             }
           >
             <img
-              src={certificate.thumbnail}
+              src={certificate.certificateImage}
               alt=""
               loading="lazy"
             />
