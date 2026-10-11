@@ -9,7 +9,7 @@ import {
   useNavigation,
   useRouteError,
 } from '@remix-run/react';
-import { createCookieSessionStorage, json } from '@remix-run/cloudflare';
+import { createCookieSessionStorage, json } from '@remix-run/node';
 import { ThemeProvider, themeStyles } from '~/components/theme-provider';
 import GothamBook from '~/assets/fonts/gotham-book.woff2';
 import GothamMedium from '~/assets/fonts/gotham-medium.woff2';
@@ -80,7 +80,7 @@ export const loader = async ({ request, context }) => {
   const canonicalUrl = `${config.url}${pathnameSliced}`;
 
   const sessionSecret =
-    context?.cloudflare?.env?.SESSION_SECRET || 'development-secret';
+  process.env.SESSION_SECRET || 'development-secret';
 
   const { getSession, commitSession } = createCookieSessionStorage({
     cookie: {

@@ -1,81 +1,153 @@
+
 /**
  * Use the browser's image loading to load an image and
- * grab the `src` it chooses from a `srcSet`
+ * grab the src it chooses from a srcSet.
  */
 export async function loadImageFromSrcSet({ src, srcSet, sizes }) {
   return new Promise((resolve, reject) => {
+    let tempImage;
+
     try {
       if (!src && !srcSet) {
         throw new Error('No image src or srcSet provided');
       }
 
-      let tempImage = new Image();
+      tempImage = new Image();
 
-      if (src) {
-        tempImage.src = src;
+      const onLoad = () => {
+        const source = tempImage.currentSrc || tempImage.src;
+
+        tempImage.removeEventListener('load', onLoad);
+        tempImage.removeEventListener('error', onError);
+        tempImage = null;
+
+        resolve(source);
+      };
+
+      const onError = () => {
+        tempImage.removeEventListener('load', onLoad);
+        tempImage.removeEventListener('error', onError);
+        tempImage = null;
+
+        reject(new Error(`Failed to load image: ${src || srcSet}`));
+      };
+
+      tempImage.addEventListener('load', onLoad);
+      tempImage.addEventListener('error', onError);
+
+      if (sizes) {
+        tempImage.sizes = sizes;
       }
 
       if (srcSet) {
         tempImage.srcset = srcSet;
       }
 
-      if (sizes) {
-        tempImage.sizes = sizes;
+      if (src) {
+        tempImage.src = src;
       }
-
-      const onLoad = () => {
-        tempImage.removeEventListener('load', onLoad);
-        const source = tempImage.currentSrc;
-        tempImage = null;
-        resolve(source);
-      };
-
-      tempImage.addEventListener('load', onLoad);
     } catch (error) {
-      reject(`Error loading ${srcSet}: ${error}`);
+      reject(error);
     }
   });
 }
 
 /**
- * Generates a transparent png of a given width and height
+ * Generate a transparent PNG of a given width and height.
  */
 export async function generateImage(width = 1, height = 1) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
 
     canvas.width = width;
     canvas.height = height;
 
-    ctx.fillStyle = 'rgba(0, 0, 0, 0)';
-    ctx.fillRect(0, 0, width, height);
+    const ctx = canvas.getContext('2d');
 
-    canvas.toBlob(async blob => {
-      if (!blob) throw new Error('Video thumbnail failed to load');
-      const image = URL.createObjectURL(blob);
+    if (!ctx) {
       canvas.remove();
-      resolve(image);
-    });
+      reject(new Error('Could not create canvas context'));
+      return;
+    }
+
+    ctx.clearRect(0, 0, width, height);
+
+    canvas.toBlob(blob => {
+      canvas.remove();
+
+      if (!blob) {
+        reject(new Error('Failed to generate transparent image'));
+        return;
+      }
+
+      resolve(URL.createObjectURL(blob));
+    }, 'image/png');
   });
 }
 
 /**
- * Use native html image `srcSet` resolution for non-html images
+ * Resolve the image URL selected by the browser from a srcSet.
+ * Also supports ordinary URLs such as /static/ocean-ai.png.
  */
 export async function resolveSrcFromSrcSet({ srcSet, sizes }) {
+  if (!srcSet || typeof srcSet !== 'string') {
+    throw new Error('A valid srcSet is required to resolve an image URL');
+  }
+
+  const entries = srcSet
+    .split(',')
+    .map(entry => entry.trim())
+    .filter(Boolean);
+
+  if (entries.length === 0) {
+    throw new Error('The srcSet contains no image sources');
+  }
+
+  // A normal URL is not a responsive srcSet.
+  // Return it directly instead of trying to read a missing width.
+  if (entries.length === 1 && !/\s+\d+w$/.test(entries[0])) {
+    return entries[0];
+  }
+
   const sources = await Promise.all(
-    srcSet.split(', ').map(async srcString => {
-      const [src, width] = srcString.split(' ');
-      const size = Number(width.replace('w', ''));
-      const image = await generateImage(size);
-      return { src, image, width };
+    entries.map(async entry => {
+      const match = entry.match(/^(\S+)\s+(\d+)w$/);
+
+      if (!match) {
+        throw new Error(`Invalid responsive srcSet entry: ${entry}`);
+      }
+
+      const [, src, widthText] = match;
+      const width = Number(widthText);
+      const image = await generateImage(width);
+
+      return {
+        src,
+        image,
+        width: `${width}w`,
+      };
     })
   );
 
-  const fakeSrcSet = sources.map(({ image, width }) => `${image} ${width}`).join(', ');
-  const fakeSrc = await loadImageFromSrcSet({ srcSet: fakeSrcSet, sizes });
+  try {
+    const fakeSrcSet = sources
+      .map(({ image, width }) => `${image} ${width}`)
+      .join(', ');
 
-  const output = sources.find(src => src.image === fakeSrc);
-  return output.src;
+    const fakeSrc = await loadImageFromSrcSet({
+      srcSet: fakeSrcSet,
+      sizes,
+    });
+
+    const output = sources.find(source => source.image === fakeSrc);
+
+    if (!output) {
+      throw new Error('Could not resolve an image from the provided srcSet');
+    }
+
+    return output.src;
+  } finally {
+    // Release temporary images created for responsive source selection.
+    sources.forEach(({ image }) => URL.revokeObjectURL(image));
+  }
 }

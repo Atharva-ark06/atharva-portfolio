@@ -1,12 +1,11 @@
-import { json, createCookieSessionStorage } from '@remix-run/cloudflare';
+import { json, createCookieSessionStorage } from '@remix-run/node';
 
 export async function action({ request, context }) {
   const formData = await request.formData();
   const theme = formData.get('theme');
 
   const sessionSecret =
-    context?.cloudflare?.env?.SESSION_SECRET || 'development-secret';
-
+  process.env.SESSION_SECRET || 'development-secret';
   const isSecure = new URL(request.url).protocol === 'https:';
 
   const { getSession, commitSession } = createCookieSessionStorage({
