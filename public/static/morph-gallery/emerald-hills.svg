@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-label="Emerald Hills" preserveAspectRatio="xMidYMid slice">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#153c35"/><stop offset="1" stop-color="#f4d59b"/></linearGradient><radialGradient id="glow"><stop offset="0" stop-color="#f4d59b" stop-opacity=".65"/><stop offset="1" stop-color="#f4d59b" stop-opacity="0"/></radialGradient><filter id="soft"><feGaussianBlur stdDeviation="26"/></filter></defs>
+<rect width="900" height="600" fill="url(#sky)"/><ellipse cx="321" cy="162" rx="190" ry="130" fill="url(#glow)"/><circle cx="603" cy="149" r="37" fill="#f4d59b" opacity=".78"/>
+<g opacity=".26" fill="#fff"><circle cx="90" cy="85" r="2"/><circle cx="210" cy="60" r="1.5"/><circle cx="420" cy="95" r="2"/><circle cx="780" cy="70" r="1.5"/><circle cx="610" cy="125" r="1.5"/></g>
+<path d="M0 340 Q120 245 245 325 T490 300 T720 315 T900 275 V600H0Z" fill="#52946d"/><path d="M0 405 Q170 330 330 410 T650 380 T900 395 V600H0Z" fill="#1b4c40"/><g fill="#e6c58c" opacity=".85"><circle cx="130" cy="360" r="4"/><circle cx="160" cy="345" r="5"/><circle cx="760" cy="370" r="4"/><circle cx="790" cy="350" r="5"/></g>
+<rect width="900" height="600" fill="url(#sky)" opacity=".08"/>
+</svg>
