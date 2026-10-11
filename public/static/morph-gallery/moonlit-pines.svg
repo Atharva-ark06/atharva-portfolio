@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-label="Moonlit Pines" preserveAspectRatio="xMidYMid slice">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#101a35"/><stop offset="1" stop-color="#c7d6ff"/></linearGradient><radialGradient id="glow"><stop offset="0" stop-color="#c7d6ff" stop-opacity=".65"/><stop offset="1" stop-color="#c7d6ff" stop-opacity="0"/></radialGradient><filter id="soft"><feGaussianBlur stdDeviation="26"/></filter></defs>
+<rect width="900" height="600" fill="url(#sky)"/><ellipse cx="650" cy="175" rx="190" ry="130" fill="url(#glow)"/><circle cx="400" cy="110" r="25" fill="#c7d6ff" opacity=".78"/>
+<g opacity=".26" fill="#fff"><circle cx="90" cy="85" r="2"/><circle cx="210" cy="60" r="1.5"/><circle cx="420" cy="95" r="2"/><circle cx="780" cy="70" r="1.5"/><circle cx="610" cy="125" r="1.5"/></g>
+<path d="M0 340 L130 200 240 320 370 155 500 320 660 180 790 315 900 220 V600H0Z" fill="#596d9c"/><path d="M0 400 L150 315 300 400 470 295 640 410 800 300 900 370 V600H0Z" fill="#18233f"/><g fill="#0e1930"><path d="M65 425l45-150 45 150zM115 430l50-180 50 180zM690 420l50-190 50 190zM750 430l42-145 42 145z"/></g>
+<rect width="900" height="600" fill="url(#sky)" opacity=".08"/>
+</svg>
