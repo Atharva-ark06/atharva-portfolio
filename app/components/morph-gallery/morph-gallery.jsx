@@ -124,6 +124,7 @@ export default function MorphGallery() {
   const [previousIndex, setPreviousIndex] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
   const [transitionKey, setTransitionKey] = useState(0);
+  const [failedImages, setFailedImages] = useState({});
 
   const timerRef = useRef(null);
 const transitionRef = useRef(null);
@@ -193,12 +194,15 @@ useEffect(() => {
             className={styles.morphCanvas}
           />
 
-          <img
-            className={styles.shaderFallback}
-            src={active.image}
-            alt=""
-            aria-hidden="true"
-          />
+          {!failedImages[active.image] && (
+            <img
+              className={styles.shaderFallback}
+              src={active.image}
+              alt=""
+              aria-hidden="true"
+              onError={() => setFailedImages((current) => ({ ...current, [active.image]: true }))}
+            />
+          )}
 
           <div
             className={styles.imageFallback}
@@ -307,11 +311,16 @@ useEffect(() => {
               index === activeIndex ? 'true' : undefined
             }
           >
-            <img
-              src={certificate.certificateImage}
-              alt=""
-              loading="lazy"
-            />
+            {failedImages[certificate.certificateImage] ? (
+              <span className={styles.thumbnailFallback}>{certificate.category}</span>
+            ) : (
+              <img
+                src={certificate.certificateImage}
+                alt={`${certificate.title} thumbnail`}
+                loading="lazy"
+                onError={() => setFailedImages((current) => ({ ...current, [certificate.certificateImage]: true }))}
+              />
+            )}
             <span>{String(index + 1).padStart(2, '0')}</span>
           </button>
         ))}
