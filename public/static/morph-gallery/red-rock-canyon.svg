@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-label="Red Rock Canyon" preserveAspectRatio="xMidYMid slice">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#572f3d"/><stop offset="1" stop-color="#ffc17e"/></linearGradient><radialGradient id="glow"><stop offset="0" stop-color="#ffc17e" stop-opacity=".65"/><stop offset="1" stop-color="#ffc17e" stop-opacity="0"/></radialGradient><filter id="soft"><feGaussianBlur stdDeviation="26"/></filter></defs>
+<rect width="900" height="600" fill="url(#sky)"/><ellipse cx="462" cy="219" rx="190" ry="130" fill="url(#glow)"/><circle cx="516" cy="188" r="29" fill="#ffc17e" opacity=".78"/>
+<g opacity=".26" fill="#fff"><circle cx="90" cy="85" r="2"/><circle cx="210" cy="60" r="1.5"/><circle cx="420" cy="95" r="2"/><circle cx="780" cy="70" r="1.5"/><circle cx="610" cy="125" r="1.5"/></g>
+<path d="M0 365 L110 210 180 270 300 130 410 285 520 180 670 320 790 165 900 310 V600H0Z" fill="#b45b50"/><path d="M0 420 L190 325 330 400 500 300 670 425 830 315 900 355 V600H0Z" fill="#442a3a"/><path d="M300 130l-25 65 32-13 22 18zM790 165l-25 50 30-12 20 14z" fill="#f8c58e"/>
+<rect width="900" height="600" fill="url(#sky)" opacity=".08"/>
+</svg>
