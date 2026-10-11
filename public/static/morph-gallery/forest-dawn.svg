@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-label="Forest at Dawn" preserveAspectRatio="xMidYMid slice">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#102c38"/><stop offset="1" stop-color="#e5a66c"/></linearGradient><radialGradient id="glow"><stop offset="0" stop-color="#e5a66c" stop-opacity=".65"/><stop offset="1" stop-color="#e5a66c" stop-opacity="0"/></radialGradient><filter id="soft"><feGaussianBlur stdDeviation="26"/></filter></defs>
+<rect width="900" height="600" fill="url(#sky)"/><ellipse cx="180" cy="105" rx="190" ry="130" fill="url(#glow)"/><circle cx="690" cy="110" r="25" fill="#e5a66c" opacity=".78"/>
+<g opacity=".26" fill="#fff"><circle cx="90" cy="85" r="2"/><circle cx="210" cy="60" r="1.5"/><circle cx="420" cy="95" r="2"/><circle cx="780" cy="70" r="1.5"/><circle cx="610" cy="125" r="1.5"/></g>
+<path d="M0 300 Q95 215 190 295 T380 270 T600 305 T900 245 L900 600 L0 600Z" fill="#2d6b65"/><path d="M0 380 Q140 310 280 385 T560 350 T900 390 L900 600 L0 600Z" fill="#122b37"/> <g fill="#102c30"><path d="M80 380l45-155 45 155zM130 410l55-190 55 190zM690 400l55-210 55 210zM755 420l50-170 50 170z"/></g>
+<rect width="900" height="600" fill="url(#sky)" opacity=".08"/>
+</svg>
