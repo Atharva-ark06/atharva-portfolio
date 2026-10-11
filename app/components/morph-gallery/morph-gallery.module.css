@@ -10,10 +10,10 @@
   color: var(--text, #fff);
 }
 
-:global(body[data-theme='light']) .gallery {
+:global([data-theme='light']) .gallery,\n:global(body.light) .gallery {
   --gallery-ink: #f8fbff;
   --gallery-muted: rgba(248, 251, 255, 0.86);
-  --gallery-surface: rgba(255, 255, 255, 0.9);
+  --gallery-surface: rgba(7, 22, 39, 0.76);
   --gallery-border: rgba(18, 105, 151, 0.36);
 }
 
@@ -332,7 +332,7 @@
 
 @media (max-width: 1100px) {
   .thumbnailRail {
-    grid-template-columns: repeat(11, minmax(76px, 1fr));
+    grid-template-columns: repeat(11, 88px);
     overflow-x: auto;
     padding: 16px 2px 8px;
     scrollbar-width: thin;
