@@ -70,52 +70,7 @@ const certificates = [
     certificateImage:
       '/static/certificates/ethical-hacking-capstone-ai.png',
     pdf: '/static/certificates/ethical-hacking-capstone-ai.pdf',
-  },
-  {
-    title: 'Fundamentals of Cybersecurity',
-    category: 'CYBERSECURITY',
-    description: 'Certificate in foundational cybersecurity concepts.',
-    image: '/static/morph-gallery/red-rock-canyon.svg',
-    thumbnail: '/static/morph-gallery/forest-thumb.jpg',
-    certificateImage: '/static/certificates/Fundamental%20of%20cyber-security.png',
-    pdf: null,
-  },
-  {
-    title: 'Network Security and Firewall',
-    category: 'NETWORK SECURITY',
-    description: 'Learning milestone in network security and firewall operations.',
-    image: '/static/morph-gallery/aurora-ridge.svg',
-    thumbnail: '/static/morph-gallery/mountain-night-thumb.jpg',
-    certificateImage: '/static/certificates/network%20security%20%26%20firewall.png',
-    pdf: null,
-  },
-  {
-    title: 'Hack Kshetra 2.0',
-    category: 'HACKATHON',
-    description: 'Hackathon participation and achievement.',
-    image: '/static/morph-gallery/misty-waterfall.svg',
-    thumbnail: '/static/morph-gallery/green-hills-thumb.jpg',
-    certificateImage: '/static/certificates/Hack-Keshtra%202.0.jpeg',
-    pdf: null,
-  },
-  {
-    title: 'NISM–SEBI',
-    category: 'FINANCIAL LITERACY',
-    description: 'Certificate related to financial markets and securities awareness.',
-    image: '/static/morph-gallery/golden-dunes.svg',
-    thumbnail: '/static/morph-gallery/mountain-lake-thumb.jpg',
-    certificateImage: '/static/certificates/NISM-SEBI.png',
-    pdf: null,
-  },
-  {
-    title: 'Tata Crucible Quiz',
-    category: 'COMPETITION',
-    description: 'Participation in the Tata Crucible quiz.',
-    image: '/static/morph-gallery/moonlit-pines.svg',
-    thumbnail: '/static/morph-gallery/wildflowers-thumb.jpg',
-    certificateImage: '/static/certificates/TATA-crucible-quiz.png',
-    pdf: null,
-  },
+  }
 ];
 
 
