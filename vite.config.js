@@ -22,26 +22,7 @@ export default defineConfig({
 
   build: {
   assetsInlineLimit: 1024,
-
-  rollupOptions: {
-    output: {
-      manualChunks(id) {
-        if (!id.includes('node_modules')) return;
-
-        if (id.includes('threejs-components')) {
-          return 'tubes-cursor';
-        }
-
-        if (
-          id.includes('/node_modules/three/') ||
-          id.includes('/node_modules/three-stdlib/')
-        ) {
-          return 'three-vendor';
-        }
-      },
-    },
-  },
-},
+ },
 
   server: {
     port: 7777,
