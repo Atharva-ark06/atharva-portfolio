@@ -398,7 +398,10 @@ const Device = ({
 
       modelGroup.current.add(gltf.scene);
 
-      gltf.scene.traverse(async node => {
+      const sceneNodes = [];
+      gltf.scene.traverse(node => sceneNodes.push(node));
+
+      for (const node of sceneNodes) {
         if (node.material) {
           node.material.color = new Color(0x1f2025);
         }
@@ -412,7 +415,7 @@ const Device = ({
           placeholderScreen.current.material.opacity = 1;
           placeholderScreen.current.position.z += 0.001;
 
-          applyScreenTexture(placeholder, placeholderScreen.current);
+          await applyScreenTexture(placeholder, placeholderScreen.current);
 
           loadFullResTexture = async () => {
             const image = await resolveSrcFromSrcSet(texture);
@@ -427,7 +430,7 @@ const Device = ({
             });
           };
         }
-      });
+      }
 
       const targetPosition = new Vector3(position.x, position.y, position.z);
 
@@ -509,18 +512,24 @@ const Device = ({
     let animation;
 
     const onModelLoad = async () => {
-      const { loadFullResTexture, playAnimation } = await loadDevice.start();
+      try {
+        const { loadFullResTexture, playAnimation } = await loadDevice.start();
 
-      setLoaded(true);
+        setLoaded(true);
       onLoad?.();
 
       if (!reduceMotion) {
         animation = playAnimation();
       }
 
-      await loadFullResTexture();
+        await loadFullResTexture();
 
-      if (reduceMotion) {
+        if (reduceMotion) {
+          renderFrame();
+        }
+      } catch (error) {
+        console.error('Unable to load portfolio 3D model:', error);
+        setLoaded(true);
         renderFrame();
       }
     };
