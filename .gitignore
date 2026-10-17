@@ -3,3 +3,4 @@
 .vercel/
 .wrangler/
 build/
+node_modules/
