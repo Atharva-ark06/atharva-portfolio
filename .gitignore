@@ -1,8 +1,0 @@
-
-.env.local
-.vercel/
-.wrangler/
-build/
-node_modules/
-page.html
-public/draco/
