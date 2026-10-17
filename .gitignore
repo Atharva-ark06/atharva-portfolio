@@ -4,3 +4,4 @@
 .wrangler/
 build/
 node_modules/
+page.html
