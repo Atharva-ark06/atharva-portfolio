@@ -1,13 +1,30 @@
-const fs = require('fs-extra');
+const fs = require('node:fs');
+const path = require('node:path');
 
-const src = 'node_modules/three/examples/jsm/libs/draco/gltf';
-const output = 'public/draco';
+const sourceDirectory = path.join(
+  process.cwd(),
+  'node_modules',
+  'three',
+  'examples',
+  'jsm',
+  'libs',
+  'draco',
+  'gltf'
+);
+const outputDirectory = path.join(process.cwd(), 'public', 'draco');
+const decoderFiles = ['draco_decoder.wasm', 'draco_wasm_wrapper.js'];
 
-// Copy draco decoder from three.js into the public directory
-fs.copy(`${src}/draco_decoder.wasm`, `${output}/draco_decoder.wasm`, err => {
-  if (err) return console.error(err);
-});
+fs.mkdirSync(outputDirectory, { recursive: true });
 
-fs.copy(`${src}/draco_wasm_wrapper.js`, `${output}/draco_wasm_wrapper.js`, err => {
-  if (err) return console.error(err);
-});
+for (const file of decoderFiles) {
+  const source = path.join(sourceDirectory, file);
+  const destination = path.join(outputDirectory, file);
+
+  if (!fs.existsSync(source)) {
+    throw new Error(`Three.js Draco decoder asset is missing: ${source}`);
+  }
+
+  fs.copyFileSync(source, destination);
+}
+
+console.info('Three.js Draco decoder assets copied to public/draco.');
