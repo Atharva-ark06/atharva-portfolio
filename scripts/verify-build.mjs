@@ -1,7 +1,12 @@
 import { access, readdir, stat } from 'node:fs/promises';
 import { join } from 'node:path';
 
-for (const path of ['build/server/index.js', 'build/client']) {
+for (const path of [
+  'build/server/index.js',
+  'build/client',
+  'build/client/draco/draco_decoder.wasm',
+  'build/client/draco/draco_wasm_wrapper.js',
+]) {
   try {
     await access(path);
   } catch {
