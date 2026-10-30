@@ -1,54 +1,40 @@
-import { PassThrough } from "node:stream";
-import { createReadableStreamFromReadable } from "@remix-run/node";
-import { RemixServer } from "@remix-run/react";
-import { isbot } from "isbot";
-import { renderToPipeableStream } from "react-dom/server";
-import type { EntryContext } from "@remix-run/node";
+import { RemixServer } from '@remix-run/react';
+import { isbot } from 'isbot';
+import { renderToReadableStream } from 'react-dom/server';
+import type { EntryContext } from '@remix-run/cloudflare';
 
-const ABORT_DELAY = 5000;
-
-export default function handleRequest(
+export default async function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
   remixContext: EntryContext
 ) {
-  return new Promise<Response>((resolve, reject) => {
-    let shellRendered = false;
+  let statusCode = responseStatusCode;
 
-    const { pipe, abort } = renderToPipeableStream(
-      <RemixServer
-        context={remixContext}
-        url={request.url}
-        abortDelay={ABORT_DELAY}
-      />,
-      {
-        onAllReady() {
-          shellRendered = true;
-          const body = new PassThrough();
+  const body = await renderToReadableStream(
+    <RemixServer
+      context={remixContext}
+      url={request.url}
+      abortDelay={5000}
+    />,
+    {
+      signal: request.signal,
+      onError(error) {
+        statusCode = 500;
+        console.error('SSR rendering error:', error);
+      },
+    }
+  );
 
-          responseHeaders.set("Content-Type", "text/html");
+  // Crawlers receive the completed document for reliable metadata indexing.
+  if (isbot(request.headers.get('user-agent') || '')) {
+    await body.allReady;
+  }
 
-          resolve(
-            new Response(createReadableStreamFromReadable(body), {
-              headers: responseHeaders,
-              status: responseStatusCode,
-            })
-          );
+  responseHeaders.set('Content-Type', 'text/html; charset=utf-8');
 
-          pipe(body);
-        },
-        onShellError(error) {
-          reject(error);
-        },
-        onError(error) {
-          responseStatusCode = 500;
-          if (shellRendered) console.error(error);
-        },
-      }
-    );
-
-    setTimeout(abort, ABORT_DELAY);
+  return new Response(body, {
+    headers: responseHeaders,
+    status: statusCode,
   });
 }
-
