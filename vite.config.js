@@ -14,17 +14,9 @@ export default defineConfig({
   build: {
     assetsInlineLimit: 1024,
     sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('threejs-components')) return 'tubes-cursor';
-          if (
-            id.includes('/node_modules/three/') ||
-            id.includes('/node_modules/three-stdlib/')
-          ) return 'three-vendor';
-        },
-      },
-    },
+    // Do not force manualChunks here: Remix also uses this Rollup config
+    // for its SSR build, which enables inlineDynamicImports. Rollup rejects
+    // manualChunks when inlineDynamicImports is enabled.
   },
 
   server: {
