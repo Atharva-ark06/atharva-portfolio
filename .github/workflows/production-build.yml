@@ -1,0 +1,42 @@
+name: Production build verification
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Reproducible Cloudflare production build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up pinned Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install exact lockfile dependencies
+        run: npm ci
+
+      - name: Build production bundles
+        run: npm run build
+
+      - name: Verify server, JavaScript, and CSS artifacts
+        run: node scripts/verify-build.mjs
+
+      - name: Check dependency tree
+        run: npm ls --depth=0
