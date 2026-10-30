@@ -1,3 +1,5 @@
+import { readdir } from 'node:fs/promises';
+import { relative, sep } from 'node:path';
 import { spawn } from 'node:child_process';
 
 const port = 8788;
@@ -6,8 +8,7 @@ const isWindows = process.platform === 'win32';
 const child = spawn('npx', ['wrangler', 'pages', 'dev', './build/client', '--ip', '127.0.0.1', '--port', String(port)], {
   stdio: ['ignore', 'pipe', 'pipe'],
   env: process.env,
-  // On POSIX, give Wrangler and its workerd/esbuild descendants a process
-  // group so the whole local test server can be stopped during cleanup.
+  // Keep Wrangler and its workerd/esbuild descendants in one process group.
   detached: !isWindows,
 });
 
@@ -30,24 +31,17 @@ async function stopServer() {
   if (child.exitCode !== null || child.signalCode !== null) return;
 
   try {
-    if (isWindows) {
-      child.kill('SIGTERM');
-    } else {
-      process.kill(-child.pid, 'SIGTERM');
-    }
+    if (isWindows) child.kill('SIGTERM');
+    else process.kill(-child.pid, 'SIGTERM');
   } catch (error) {
     if (error.code !== 'ESRCH') throw error;
   }
 
   if (await waitForExit(5_000)) return;
 
-  // Do not leave Wrangler, workerd, or esbuild running after the smoke test.
   try {
-    if (isWindows) {
-      child.kill('SIGKILL');
-    } else {
-      process.kill(-child.pid, 'SIGKILL');
-    }
+    if (isWindows) child.kill('SIGKILL');
+    else process.kill(-child.pid, 'SIGKILL');
   } catch (error) {
     if (error.code !== 'ESRCH') throw error;
   }
@@ -68,6 +62,22 @@ async function waitForServer() {
   throw new Error(`Timed out waiting for Wrangler.\\n${logs}`);
 }
 
+async function collectClientAssets(directory, prefix = '') {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const files = [];
+
+  for (const entry of entries) {
+    const relativePath = prefix ? `${prefix}/${entry.name}` : entry.name;
+    if (entry.isDirectory()) {
+      files.push(...await collectClientAssets(`${directory}/${entry.name}`, relativePath));
+    } else if (/\.(?:m?js|css)$/i.test(entry.name)) {
+      files.push(relativePath);
+    }
+  }
+
+  return files;
+}
+
 try {
   const page = await waitForServer();
   const html = await page.text();
@@ -75,12 +85,24 @@ try {
     throw new Error('SSR response did not contain a complete HTML document.');
   }
 
+  // Read script and stylesheet URLs from SSR markup. Attribute order can vary
+  // between React/Remix versions, so match src/href anywhere in each tag.
   const assetPaths = new Set([
-    ...[...html.matchAll(/<script[^>]+src=["']([^"']+)["']/gi)].map(match => match[1]),
-    ...[...html.matchAll(/<link[^>]+href=["']([^"']+\\.css(?:\\?[^"']*)?)["']/gi)].map(match => match[1]),
+    ...[...html.matchAll(/<script\b[^>]*\bsrc\s*=\s*["']([^"']+)["'][^>]*>/gi)].map(match => match[1]),
+    ...[...html.matchAll(/<link\b[^>]*\bhref\s*=\s*["']([^"']+\.css(?:\?[^"']*)?)["'][^>]*>/gi)].map(match => match[1]),
   ]);
 
-  if (assetPaths.size === 0) throw new Error('SSR HTML did not reference any JS or CSS assets.');
+  // Some Remix/Cloudflare SSR responses omit asset tags in the HTML (for
+  // example, when route-level Links are empty). Still verify every emitted
+  // production JS/CSS file is actually served by the Pages runtime.
+  const emittedAssets = await collectClientAssets('build/client');
+  for (const asset of emittedAssets) {
+    assetPaths.add(`/${asset.split(sep).join('/')}`);
+  }
+
+  if (assetPaths.size === 0) {
+    throw new Error('No production JS/CSS assets were emitted or discovered.');
+  }
 
   for (const assetPath of assetPaths) {
     const url = new URL(assetPath, base);
@@ -92,7 +114,7 @@ try {
     if (url.pathname.endsWith('.css') && !type.includes('text/css')) {
       throw new Error(`Stylesheet has unexpected content type: ${type}`);
     }
-    if (/\\.m?js$/i.test(url.pathname) && !/(javascript|ecmascript)/i.test(type)) {
+    if (/\.m?js$/i.test(url.pathname) && !/(javascript|ecmascript)/i.test(type)) {
       throw new Error(`JavaScript has unexpected content type: ${type}`);
     }
   }
