@@ -1,6 +1,4 @@
 import { vitePlugin as remix } from '@remix-run/dev';
-import { installGlobals } from '@remix-run/node';
-import { vercelPreset } from '@vercel/remix/vite';
 import { defineConfig } from 'vite';
 import jsconfigPaths from 'vite-jsconfig-paths';
 import mdx from '@mdx-js/rollup';
@@ -10,33 +8,29 @@ import rehypeImgSize from 'rehype-img-size';
 import rehypeSlug from 'rehype-slug';
 import rehypePrism from '@mapbox/rehype-prism';
 
-installGlobals();
-
 export default defineConfig({
   assetsInclude: ['**/*.glb', '**/*.hdr', '**/*.glsl'],
 
   build: {
     assetsInlineLimit: 1024,
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('threejs-components')) {
-            return 'tubes-cursor';
-          }
-
-          if (
-            id.includes('/node_modules/three/') ||
-            id.includes('/node_modules/three-stdlib/')
-          ) {
-            return 'three-vendor';
-          }
-        },
-      },
-    },
+    sourcemap: false,
+    // Do not force manualChunks here: Remix also uses this Rollup config
+    // for its SSR build, which enables inlineDynamicImports. Rollup rejects
+    // manualChunks when inlineDynamicImports is enabled.
   },
 
   server: {
     port: 7777,
+  },
+
+  // Remix is executed inside a Cloudflare Worker in production.
+  // Keep the SSR bundle on web-platform APIs rather than Node built-ins.
+  ssr: {
+    target: 'webworker',
+    resolve: {
+      conditions: ['workerd', 'worker', 'browser', 'module', 'import', 'default'],
+      externalConditions: ['workerd', 'worker', 'browser', 'module', 'import', 'default'],
+    },
   },
 
   plugins: [
@@ -51,8 +45,6 @@ export default defineConfig({
     }),
 
     remix({
-      presets: [vercelPreset()],
-
       future: {
         v3_fetcherPersist: true,
         v3_lazyRouteDiscovery: true,
@@ -60,9 +52,8 @@ export default defineConfig({
         v3_singleFetch: true,
         v3_throwAbortReason: true,
       },
-
       routes(defineRoutes) {
-        return defineRoutes((route) => {
+        return defineRoutes(route => {
           route('/', 'routes/home/route.js', { index: true });
         });
       },

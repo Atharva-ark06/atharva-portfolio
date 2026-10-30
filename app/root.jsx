@@ -9,7 +9,8 @@ import {
   useNavigation,
   useRouteError,
 } from '@remix-run/react';
-import { createCookieSessionStorage, json } from '@remix-run/node';
+import { json } from '@remix-run/cloudflare';
+import { getSessionStorage } from '~/utils/session.server';
 import { ThemeProvider, themeStyles } from '~/components/theme-provider';
 import GothamBook from '~/assets/fonts/gotham-book.woff2';
 import GothamMedium from '~/assets/fonts/gotham-medium.woff2';
@@ -77,26 +78,9 @@ export const loader = async ({ request, context }) => {
     ? pathname.slice(0, -1)
     : pathname;
 
-  const canonicalUrl = `${config.url}${pathnameSliced}`;
+  const canonicalUrl = new URL(pathnameSliced, config.url || url).toString();
 
-  const sessionSecret =
-  process.env.SESSION_SECRET || 'development-secret';
-
-  const { getSession, commitSession } = createCookieSessionStorage({
-    cookie: {
-      name: '__session',
-      httpOnly: true,
-      maxAge: 604_800,
-      path: '/',
-      sameSite: 'lax',
-      secrets: [sessionSecret],
-
-      // HTTPS is required for secure cookies in production.
-      // Keeping this false during local development allows
-      // the theme/session cookie to work on localhost.
-      secure: process.env.NODE_ENV === 'production',
-    },
-  });
+  const { getSession, commitSession } = getSessionStorage(context);
 
   const session = await getSession(request.headers.get('Cookie'));
   const theme = session.get('theme') || 'dark';

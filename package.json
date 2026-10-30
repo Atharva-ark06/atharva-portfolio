@@ -1,13 +1,14 @@
 {
   "name": "portfolio",
   "homepage": "",
-  "description": "Portfolio site ",
+  "description": "Portfolio site",
   "repository": "",
   "author": "ARK",
   "sideEffects": false,
   "type": "module",
   "scripts": {
     "build": "remix vite:build",
+    "check:build": "npm run build",
     "dev": "node ./scripts/dev.cjs && remix vite:dev",
     "start": "wrangler pages dev ./build/client",
     "postinstall": "node ./scripts/draco.cjs",
@@ -62,6 +63,6 @@
     "wrangler": "^3.114.17"
   },
   "engines": {
-    "node": ">=19.9.0"
+    "node": ">=20.19.0"
   }
 }
