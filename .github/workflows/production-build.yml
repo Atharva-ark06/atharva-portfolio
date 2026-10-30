@@ -32,11 +32,17 @@ jobs:
       - name: Install exact lockfile dependencies
         run: npm ci
 
+      - name: Provide isolated smoke-test session secret
+        run: printf 'SESSION_SECRET=%s\\n' 'ci-only-session-secret-for-worker-smoke-tests-32chars' > .dev.vars
+
       - name: Build production bundles
         run: npm run build
 
       - name: Verify server, JavaScript, and CSS artifacts
         run: node scripts/verify-build.mjs
+
+      - name: Smoke test SSR HTML and served JS/CSS
+        run: node scripts/smoke-production.mjs
 
       - name: Check dependency tree
         run: npm ls --depth=0
