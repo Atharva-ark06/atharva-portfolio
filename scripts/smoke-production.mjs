@@ -1,5 +1,5 @@
 import { readdir } from 'node:fs/promises';
-import { relative, sep } from 'node:path';
+import { sep } from 'node:path';
 import { spawn } from 'node:child_process';
 
 const port = 8788;
